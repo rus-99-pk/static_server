@@ -1,0 +1,4 @@
+[containers]
+container_for_exercise ansible_host=localhost ansible_user=ansible ansible_port= ansible_ssh_pass= ansible_become_pass=
+[containers:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'

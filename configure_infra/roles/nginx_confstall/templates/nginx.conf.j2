@@ -1,0 +1,35 @@
+log_format custom_log '$remote_addr - $remote_user [$time_local] "$request" '
+                '$status $body_bytes_sent "$http_referer" '
+                '"$http_user_agent" "$http_x_forwarded_for"';
+
+access_log /var/log/nginx/access_custom.log custom_log;
+
+gzip_types text/plain
+            text/css
+            text/javascript
+            text/xml
+            application/json
+            application/javascript
+            application/x-font-ttf
+            application/xml
+            application/xml+rss 
+            image/svg+xml;
+
+server {
+    listen 80;
+    server_name  _;
+    server_tokens off;
+
+    location ~ ^/$ {
+        return 302 http://$host/images/;
+    }
+
+    location /images/ {
+        root /var/www/;
+        autoindex on;
+        autoindex_localtime off;
+        autoindex_exact_size off;
+        #alias /var/www/images/;
+        expires 1h;
+    }
+}

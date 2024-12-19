@@ -1,0 +1,22 @@
+---
+users:
+  - name: "user_bash"
+    shell: "/bin/bash"
+    state: "present"
+    password: "{{ 'password_bash' }}"
+    ssh_key: "ssh-rsa user_bash@example"
+    groups: ["users", "sudo"]
+
+  - name: "user_zsh"
+    shell: "/bin/zsh"
+    state: "present"
+    password: "{{ 'password_zsh' }}"
+    ssh_key: "ssh-rsa user_zsh@example"
+    groups: ["users"]
+
+  - name: "user_sh"
+    shell: "/bin/sh"
+    state: "present"
+    password: "{{ 'password_sh' }}"
+    ssh_key: "ssh-rsa user_sh@example"
+    groups: ["users", "custom_group"]

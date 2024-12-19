@@ -1,0 +1,23 @@
+---
+- name: Проверка групп
+  ansible.builtin.group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ users | map(attribute='groups') | flatten | unique }}"
+
+- name: Управление пользователями
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    shell: "{{ item.shell }}"
+    state: "{{ item.state }}"
+    password: "{{ item.password | default(omit) }}"
+    groups: "{{ item.groups | join(',') }}"
+  loop: "{{ users }}"
+
+- name: Установка SSH-ключей для пользователей
+  ansible.builtin.authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    key: "{{ item.ssh_key }}"
+  when: item.state == 'present' and item.ssh_key is defined
+  loop: "{{ users }}"

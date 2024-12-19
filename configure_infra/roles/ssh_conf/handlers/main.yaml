@@ -1,0 +1,5 @@
+---
+- name: Перезапуск SSH демона
+  shell: /etc/init.d/ssh restart
+  args:
+    executable: /bin/sh

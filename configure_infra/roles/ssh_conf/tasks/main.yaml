@@ -1,0 +1,6 @@
+---
+- name: Конфигурация SSH
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+  notify: Перезапуск SSH демона

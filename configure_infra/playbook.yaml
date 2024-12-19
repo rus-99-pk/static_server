@@ -1,0 +1,19 @@
+---
+- hosts: all
+  pre_tasks:
+    - name: Загрузка пользовательских данных
+      include_vars:
+        file: "./user_vars/main.yaml"
+
+- name: Деплой задачи в контейнер
+  hosts: containers
+  become: true
+  become_method: sudo
+
+  roles:
+    - user_conf
+    - zsh_install
+    - ssh_conf
+    - packages_install
+    - nginx_confstall
+    - static_deploy

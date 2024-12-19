@@ -1,0 +1,16 @@
+---
+services:
+  # Имя сервиса
+  container_for_exercise:
+    build:
+      context: .
+      # Переменные окружения
+      args:
+        - INSTALL_PKG=${INSTALL_PKG}
+        - MANAGE_USER=${MANAGE_USER}
+        - MANAGE_PWD=${MANAGE_PWD}
+    # Пробрасываем удаленные порты на локальную машину
+    ports:
+      - "${SSH_PORT}:22"
+      - "80:80"
+    restart: on-failure:5

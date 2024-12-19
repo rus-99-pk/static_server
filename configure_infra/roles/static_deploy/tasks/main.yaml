@@ -1,0 +1,18 @@
+---
+- name: Создание каталога /var/www/images/
+  ansible.builtin.file:
+    path: /var/www/images/
+    state: directory
+
+- name: Загрузка static.zip с использованием curl
+  ansible.builtin.command:
+    cmd: curl -L -o /tmp/static.zip https://drive.usercontent.google.com/download?id=1L9hsq9ZFB5VbXYJ3kEKH47x9nhxxZEnI&export=download&authuser=0
+  args:
+    creates: /tmp/static.zip
+
+- name: Распаковка static.zip в /var/www/images
+  unarchive:
+    src: /tmp/static.zip
+    dest: /var/www/images
+    remote_src: true
+    mode: "0644"

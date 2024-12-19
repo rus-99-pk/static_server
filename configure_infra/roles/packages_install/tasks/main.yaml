@@ -1,0 +1,10 @@
+---
+- name: Обновление кэша APT и обновление установленных пакетов
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: dist
+
+- name: Установка доп. пакетов
+  ansible.builtin.package:
+    name: "{{ packages }}"
+    state: present

@@ -1,0 +1,25 @@
+---
+- name: Установка zsh
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
+- name: Изменение оболочки указанных пользователей на zsh
+  ansible.builtin.command: "chsh -s /bin/zsh {{ item.name }}"
+  when: item.shell == "/bin/zsh"
+  loop: "{{ users }}"
+
+- name: Создание ~/.zshrc
+  copy:
+    content: "# Basic .zshrc file"
+    dest: /home/{{ item.name }}/.zshrc
+    owner: "{{ item.name }}"
+    mode: "0644"
+  loop: "{{ users }}"
+
+- name: Установка oh-my-zsh
+  ansible.builtin.shell: curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+  when: item.shell == "/bin/zsh"
+  become_user: "{{ item.name }}"
+  loop: "{{ users }}"
+  ignore_errors: true

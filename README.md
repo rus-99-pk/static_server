@@ -8,6 +8,7 @@ bash ./start_everything.sh
 ├── configure_infra (каталог с Ansible-проектом)
 │   ├── inventory (файл Inventory)
 │   ├── playbook.yaml (основной playbook)
+│   ├── user_vars (переменные пользователей)
 │   └── roles
 │       ├── nginx_confstall (раскатка nginx)
 │       ├── packages_install (обновление пакетов и установка дополнительных утилит)
